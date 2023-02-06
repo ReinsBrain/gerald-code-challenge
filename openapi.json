@@ -1,0 +1,139 @@
+{
+	"openapi":"3.1.0",
+	"info": {
+		"title":"post-risk-asses",
+		"version":"1.0"
+	},
+	"servers": [
+		{"url":"https://gerald-post-risk-assess.execute-api.us-west-2.amazonaws.com/v1"}
+	],
+	"components": {
+		"schemas": {
+			"ServerErrorModel": {
+				"type": "object",
+				"properties": {
+					"error": {
+						"type": "object",
+						"properties": {
+							"messsage": { "type": "string" }
+						}
+					}
+				}
+			},
+			"BadRequestModel": {
+				"type": "object",
+				"properties": {
+					"error": {
+						"type": "object",
+						"properties": {
+							"error": {
+								"type": "object",
+								"properties": {
+									"messsage": { "type": "string" },
+									"code": { "type": "string" },
+									"hint": { "type": "string" }
+								}
+							}
+						}
+					}
+				}
+			},
+			"RiskAssessmentModel" : {
+				"type": "object",
+				"properties": {
+					"auto": { "type": "string", "enum":["ineligible","responsible","economic","regular"] },
+					"disability": { "type": "string", "enum":["ineligible","responsible","economic","regular"] },
+					"home": { "type": "string", "enum":["ineligible","responsible","economic","regular"] },
+					"life": { "type": "string", "enum":["ineligible","responsible","economic","regular"] }
+				}
+			},
+			"RiskProfileModel" : {
+				"type": "object",
+				"properties": {
+					"age": { "type":"integer", "minimum": 0 },
+					"dependents": { "type": "integer", "minimum": 0 },
+					"income": { "type": "integer", "minimum": 0 },
+					"house": {
+						"type": "object",
+						"properties": {
+							"ownership_status": {
+								"type": "string", "enum": ["owned","mortgaged"]
+							}
+						}
+					},
+					"marital_status": {
+						"type": "string", "enum":["married","single"]
+					},
+					"risk_questions": {
+						"type":"array",
+						"prefixItems": [
+							{ "type":"integer", "minimum": 0, "maximum": 1 },
+							{ "type":"integer", "minimum": 0, "maximum": 1 },
+							{ "type":"integer", "minimum": 0, "maximum": 1 }
+						],
+						"items": false
+					}
+				}
+			}
+		},
+		"securitySchemes": {
+			"api-key": {
+				"type": "apiKey",
+				"name": "x-api-key",
+				"in": "header"
+			}
+		}
+	},
+	"paths": {
+		"/asses" : {
+			"post": {
+				"description": "returns a Risk Assessment object",
+				"security": [ { "api-key": [] } ],
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/RiskProfileModel"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/RiskAssessmentModel"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/BadRequestModel"
+								}
+							}
+						}
+					},
+					"401": { "description": "Unauthorized" },
+					"403": { "description": "Forbidden" },
+					"500": {
+						"description": "Internal Server Error",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ServerErrorModel"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"security": [ { "api-key": [] } ]
+}

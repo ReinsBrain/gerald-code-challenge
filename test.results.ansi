@@ -1,0 +1,47 @@
+[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/common/riskAssess/[22m[1mindex.test.js[22m
+  RiskAssess.assessBase()
+    [32m✓[39m [2mshould sum all risk values (2 ms)[22m
+    [32m✓[39m [2mshould return 0 when risk_questions is undefined[22m
+  RiskAssess.getScoreCode()
+    [32m✓[39m [2mshould return "ineligible" when score is null[22m
+    [32m✓[39m [2mshould return "responsible" when score >= 3[22m
+    [32m✓[39m [2mshould return "economic" when score < 1[22m
+    [32m✓[39m [2mshould return "regular" when score is 0,1 or 2[22m
+  RiskAssess.assessAuto()
+    [32m✓[39m [2mshould return null when vehicle is undefined[22m
+    [32m✓[39m [2mshould return -2 when age < 30[22m
+    [32m✓[39m [2mshould return -1 when age >= 30 && age < 40[22m
+    [32m✓[39m [2mshould return -1 when income > 200_000 (1 ms)[22m
+    [32m✓[39m [2mshould return +1 when vehicle.year less than 5 years[22m
+    [32m✓[39m [2mshould return +3 when risk_questions are true[22m
+    [32m✓[39m [2mshould return sum of non-null combined states[22m
+  RiskAssess.assessDisability()
+    [32m✓[39m [2mshould return null when income === 0[22m
+    [32m✓[39m [2mshould return null when age > 60[22m
+    [32m✓[39m [2mshould return -2 when age < 30[22m
+    [32m✓[39m [2mshould return -1 when age > 30 && profile.age < 40[22m
+    [32m✓[39m [2mshould return -1 when income > 200_000[22m
+    [32m✓[39m [2mshould return +1 when house.ownership_status === "mortgaged"[22m
+    [32m✓[39m [2mshould return +1 when dependents greater than 0[22m
+    [32m✓[39m [2mshould return -1 when marital_statis is "married"[22m
+  RiskAssess.assessHome()
+    [32m✓[39m [2mshould return null when house property is undefined[22m
+    [32m✓[39m [2mshould return -2 when age < 30[22m
+    [32m✓[39m [2mshould return -1 when age > 30 && profile.age < 40[22m
+    [32m✓[39m [2mshould return -1 when income > 200_000[22m
+    [32m✓[39m [2mshould return +1 when house.ownership_status === "mortgaged" [22m
+  RiskAssess.assessLife()
+    [32m✓[39m [2mshould return null when age > 60[22m
+    [32m✓[39m [2mshould return -2 when age < 30[22m
+    [32m✓[39m [2mshould return -1 when age > 30 && profile.age < 40[22m
+    [32m✓[39m [2mshould return +1 when dependents > 0[22m
+    [32m✓[39m [2mshould return -1 when income > 200_000[22m
+    [32m✓[39m [2mshould return +1 when marital_status === "married" (1 ms)[22m
+  RiskAssess.assess()
+    [32m✓[39m [2mshould return correct values when passed scenario A (1 ms)[22m
+
+[1mTest Suites: [22m[1m[32m1 passed[39m[22m, 1 total
+[1mTests:       [22m[1m[32m33 passed[39m[22m, 33 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        0.589 s, estimated 1 s
+[2mRan all test suites[22m[2m.[22m
