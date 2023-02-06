@@ -85,7 +85,7 @@
 		}
 	},
 	"paths": {
-		"/asses" : {
+		"/assess" : {
 			"post": {
 				"description": "returns a Risk Assessment object",
 				"security": [ { "api-key": [] } ],
