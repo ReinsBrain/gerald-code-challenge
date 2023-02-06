@@ -14,3 +14,9 @@ npm install
 npm run test
 ```
 
+## endpoints
+```
+POST /assess
+Content-Type: application/json
+```
+see [openapi.json#paths/assess](./openapi.json)
